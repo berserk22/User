@@ -1,0 +1,19 @@
+{
+  "name": "skeleton-app/user",
+  "description": "SkeletonApp Module User",
+  "require": {
+    "php": ">=8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\User\\": "/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "master"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": false
+}
