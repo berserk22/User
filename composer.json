@@ -6,7 +6,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Modules\\User\\": "/"
+      "Modules\\User\\": "/modules/User/"
     }
   },
   "extra": {
