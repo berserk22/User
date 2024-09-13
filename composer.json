@@ -1,6 +1,7 @@
 {
   "name": "skeleton-app/user",
   "description": "SkeletonApp Module User",
+  "type": "modules",
   "require": {
     "php": ">=8.2"
   },
