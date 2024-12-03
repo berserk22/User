@@ -19,12 +19,18 @@ class GetRole extends AbstractPlugin {
 
     /**
      * @param int|null $id
-     * @return Role
+     * @return Role|null
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function process(int $id = null): Role {
-        return $this->getUserModel()->getUserRole($id);
+    public function process(int $id = null): ?Role {
+        $role =  $this->getUserModel()->getUserRole($id);
+        if (!is_null($role)){
+            return $role;
+        }
+        else {
+            return null;
+        }
     }
 
 }
