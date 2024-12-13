@@ -48,7 +48,7 @@ class IndexController extends Controller {
      */
     protected string $passChar = "0123456789qwertzuiopasdfghjklyxcvbnm!?()[]";
 
-    private string $contentType = "text/html";
+    public string $contentType = "text/html";
 
     /**
      * @return void

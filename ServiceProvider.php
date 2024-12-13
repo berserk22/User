@@ -137,9 +137,12 @@ class ServiceProvider extends Provider {
      */
     public function boot(): void {
         $container = $this->getContainer();
-        $container->set('Modules\User\Controller\IndexController', function(){
-            return new Controller\IndexController($this);
-        });
+        if (!$container->has('Modules\User\Controller\IndexController')){
+            $container->set('Modules\User\Controller\IndexController', function(){
+                return new Controller\IndexController($this);
+            });
+        }
+
 
         $container->set('Modules\User\Controller\DashboardController', function(){
             return new Controller\DashboardController($this);
