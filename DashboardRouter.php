@@ -68,11 +68,21 @@ class DashboardRouter extends \Core\Module\Router {
         ],
         'permission_group' => [
             'callback' => 'permissionGroup',
-            'pattern' => '/permissions',
+            'pattern' => '/permissions_group',
             'method'=>['GET', 'POST']
         ],
-        'permission' => [
-            'callback' => 'permission',
+        'permission_group_add' => [
+            'callback' => 'permissionGroupAddEdit',
+            'pattern' => '/permissions_group/add',
+            'method'=>['GET', 'POST']
+        ],
+        'permission_group_edit' => [
+            'callback' => 'permissionGroupAddEdit',
+            'pattern' => '/permissions_group/{permission_group:[0-9]+}',
+            'method'=>['GET', 'POST']
+        ],
+        'permissions' => [
+            'callback' => 'permissions',
             'pattern' => '/permissions/{permission_group:[0-9]+}',
             'method'=>['GET', 'POST']
         ],

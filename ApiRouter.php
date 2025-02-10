@@ -25,6 +25,11 @@ class ApiRouter extends \Core\Module\ApiRouter {
      * @var array|array[]
      */
     public array $mapForUriBuilder = [
+        'login' => [
+            'callback' => 'login',
+            'pattern' =>'/login',
+            'method'=>['POST']
+        ],
         'list' => [
             'callback' => 'getUsers',
             'pattern' =>'/list',

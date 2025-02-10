@@ -119,4 +119,59 @@ class IndexController extends AbstractManager {
         return $this->getView()->renderJson($response);
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     * @throws DependencyException
+     * @throws NotFoundException
+     * @OA\Post(
+     *    path="/user/login",
+     *    summary="Login für Benutzer",
+     *    tags={"Authentication"},
+     *    description="Authentifiziert einen Benutzer mit E-Mail-Adresse und Passwort und gibt ein Token zurück.",
+     *    @OA\RequestBody(
+     *      required=true,
+     *      description="Benutzeranmeldeinformationen",
+     *      @OA\JsonContent(
+     *        required={"email", "password"},
+     *        @OA\Property(property="email", type="string", format="email", description="E-Mail-Adresse des Benutzers"),
+     *        @OA\Property(property="password", type="string", format="password", description="Passwort des Benutzers")
+     *      )
+     *    ),
+     *    @OA\Response(
+     *      response=200,
+     *      description="Erfolgreiche Authentifizierung",
+     *      @OA\JsonContent(
+     *        @OA\Property(property="success", type="bool", description="JWT-Token für die weitere Authentifizierung")
+     *      )
+     *    ),
+     *    @OA\Response(
+     *      response=401,
+     *      description="Ungültige Anmeldedaten",
+     *      @OA\JsonContent(
+     *        @OA\Property(property="success", type="bool", example="false"),
+     *        @OA\Property(property="error", type="string", example="Invalid credentials")
+     *      )
+     *    ),
+     *    @OA\Response(
+     *      response=400,
+     *      description="Fehlerhafte Anfrage",
+     *      @OA\JsonContent(
+     *        @OA\Property(property="success", type="bool", example="false"),
+     *        @OA\Property(property="error", type="string", example="Missing required fields")
+     *      )
+     *    )
+     *  )
+     *
+     */
+    public function login(Request $request, Response $response): Response {
+        $formData = $request->getParsedBody();
+        $this->getView()->setVariables([
+            "success"=>true,
+            "formData"=>$formData
+        ]);
+        return $this->getView()->renderJson($response);
+    }
+
 }

@@ -120,6 +120,10 @@ class DashboardController extends Dashboard {
      * @throws NotFoundException
      */
     public function role(Request $request, Response $response): Response {
+        if (!$this->getAuth()->getStatus()){
+            return $response->withRedirect($this->getUserRouter()->getUrl('dashboard_login'));
+        }
+
         $roles = $this->getUserManager()->getRoleEntity()::all();
         $this->getView()->setVariables([
             'seo'=>[
@@ -242,5 +246,91 @@ class DashboardController extends Dashboard {
             ]);
             return $this->getView()->render($response, 'user/role_edit');
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
+    public function permissionGroup(Request $request, Response $response): Response {
+        if (!$this->getAuth()->getStatus()){
+            return $response->withRedirect($this->getUserRouter()->getUrl('dashboard_login'));
+        }
+
+        $permissions_group = $this->getUserManager()->getPermissionGroupEntity()::all();
+
+        $this->getView()->setVariables([
+            'seo'=>[
+                'title'=>"Rechte Group",
+            ],
+            'breadcrumbs'=>[
+                'Dashboard'=>['dashboard_home'],
+                'Rechte Group'=>'',
+            ],
+            'permissions_group'=>$permissions_group
+        ]);
+
+        return $this->getView()->render($response, 'user/permission_group');
+    }
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
+    public function permissionGroupAddEdit(Request $request, Response $response): Response {
+        $formData = $request->getParsedBody();
+        if (!empty($formData)){
+            //$permissionGroupEntity = $this->getUserManager()->getPermissionGroupEntity();
+            //$permissionGroup = new $permissionGroupEntity();
+            return $this->getView()->renderJson($response, [
+                'success'=>true,
+                "formData"=>$formData
+            ]);
+        }
+        else{
+            $template = $this->getView()->getHtml('user/permission_group_add');
+
+            return $this->getView()->renderJson($response, [
+                'success'=>true,
+                'title'=>'Neuer Rechte Group',
+                'template'=>$template
+            ]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
+    public function permissions(Request $request, Response $response): Response {
+        if (!$this->getAuth()->getStatus()){
+            return $response->withRedirect($this->getUserRouter()->getUrl('dashboard_login'));
+        }
+
+        $permissionGroup = $this->getUserManager()->getPermissionGroupEntity()::find($request->getAttribute('permission_group'));
+
+        $permissions = $permissionGroup->permission();
+
+        $this->getView()->setVariables([
+            'seo'=>[
+                'title'=>'Rechte Group: '.$permissionGroup->title,
+            ],
+            'breadcrumbs'=>[
+                'Dashboard'=>['dashboard_home'],
+                'Rechte Group: '.$permissionGroup->title => ['dashboard_user_permission_group'],
+                'Rechte' => ''
+            ],
+            'permissions'=>$permissions
+        ]);
+        return $this->getView()->render($response, 'user/permissions');
     }
 }

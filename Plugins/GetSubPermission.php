@@ -18,12 +18,12 @@ class GetSubPermission extends AbstractPlugin {
     use UserTrait;
 
     /**
-     * @param int $parent
+     * @param int|null $parent
      * @return Collection|array
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function process(int $parent = 0): Collection|array {
+    public function process(int|null $parent = 0): Collection|array {
         return $this->getUserModel()->getSubPermission($parent);
     }
 

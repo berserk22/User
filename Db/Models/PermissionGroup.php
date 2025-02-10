@@ -21,4 +21,11 @@ class PermissionGroup extends Model {
     public function getPermission(): Collection {
         return $this->hasMany('Modules\User\Db\Models\Permission')->where("active", "=", 1)->get();
     }
+
+    /**
+     * @return Collection
+     */
+    public function permission(): Collection {
+        return $this->hasMany('Modules\User\Db\Models\Permission')->get();
+    }
 }
