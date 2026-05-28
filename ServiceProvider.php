@@ -65,33 +65,23 @@ class ServiceProvider extends Provider {
         $container = $this->getContainer();
 
         if (!$container->has('User\Auth')){
-            $container->set('User\Auth', function(){
-                return new UserAuthModel($this);
-            });
+            $container->set('User\Auth', new UserAuthModel($this));
         }
 
         if (!$container->has($this->router)){
-            $container->set($this->router, function(){
-                return new Router($this);
-            });
+            $container->set($this->router, new Router($this));
         }
 
         if (!$container->has($this->dashboardRouter)){
-            $container->set($this->dashboardRouter, function(){
-                return new DashboardRouter($this);
-            });
+            $container->set($this->dashboardRouter, new DashboardRouter($this));
         }
 
         if (!$container->has($this->apiRouter)){
-            $container->set($this->apiRouter, function(){
-                return new ApiRouter($this);
-            });
+            $container->set($this->apiRouter, new ApiRouter($this));
         }
 
         if (!$container->has('Validators:UserValidator')){
-            $container->set('Validators:UserValidator', function() {
-                return new UserValidator($this);
-            });
+            $container->set('Validators:UserValidator', new UserValidator($this));
         }
     }
 
@@ -108,16 +98,12 @@ class ServiceProvider extends Provider {
         }
 
         if (!$container->has('User\Manager')){
-            $this->getContainer()->set('User\Manager', function(){
-                $manager = new UserManager($this);
-                return $manager->initEntity();
-            });
+            $manager = new UserManager($this);
+            $this->getContainer()->set('User\Manager', $manager->initEntity());
         }
 
         if (!$container->has('User\Model')){
-            $this->getContainer()->set('User\Model', function(){
-                return new UserModel($this);
-            });
+            $this->getContainer()->set('User\Model', new UserModel($this));
         }
 
         if ($container->has('ViewManager::View')){
@@ -138,19 +124,13 @@ class ServiceProvider extends Provider {
     public function boot(): void {
         $container = $this->getContainer();
         if (!$container->has('Modules\User\Controller\IndexController')){
-            $container->set('Modules\User\Controller\IndexController', function(){
-                return new Controller\IndexController($this);
-            });
+            $container->set('Modules\User\Controller\IndexController', new Controller\IndexController($this));
         }
 
 
-        $container->set('Modules\User\Controller\DashboardController', function(){
-            return new Controller\DashboardController($this);
-        });
+        $container->set('Modules\User\Controller\DashboardController', new Controller\DashboardController($this));
 
-        $container->set('Modules\User\ApiController\IndexController', function(){
-            return new ApiController\IndexController($this);
-        });
+        $container->set('Modules\User\ApiController\IndexController', new ApiController\IndexController($this));
     }
 
     /**

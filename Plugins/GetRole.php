@@ -23,7 +23,7 @@ class GetRole extends AbstractPlugin {
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function process(int $id = null): ?Role {
+    public function process(?int $id = null): ?Role {
         $role =  $this->getUserModel()->getUserRole($id);
         if (!is_null($role)){
             return $role;

@@ -59,7 +59,7 @@ class Router extends \Core\Module\Router {
         ],
         'new_password' => [
             'callback' => 'newPassword',
-            'pattern' => '/new_pwd/{hash:[a-z0-9]+}',
+            'pattern' => '/new_pwd/{hash:slug}',
             'method'=>['GET']
         ],
         'settings' => [
@@ -69,7 +69,7 @@ class Router extends \Core\Module\Router {
         ],
         'email_confirm' => [
             'callback' => 'emailConfirm',
-            'pattern' => '/email_confirm/{hash:[a-z0-9]+}',
+            'pattern' => '/email_confirm/{hash:slug}',
             'method'=>['GET']
         ],
     ];

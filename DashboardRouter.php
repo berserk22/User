@@ -48,7 +48,7 @@ class DashboardRouter extends \Core\Module\Router {
         ],
         'edit' => [
             'callback' => 'userEdit',
-            'pattern' => '/edit/{userId:[0-9]+}',
+            'pattern' => '/edit/{userId:int}',
             'method'=>['GET', 'POST']
         ],
         'role' => [
@@ -63,7 +63,7 @@ class DashboardRouter extends \Core\Module\Router {
         ],
         'role_edit' => [
             'callback' => 'roleEdit',
-            'pattern' => '/role/{roleId:[0-9]+}',
+            'pattern' => '/role/{roleId:int}',
             'method'=>['GET', 'POST']
         ],
         'permission_group' => [
@@ -78,22 +78,22 @@ class DashboardRouter extends \Core\Module\Router {
         ],
         'permission_group_edit' => [
             'callback' => 'permissionGroupAddEdit',
-            'pattern' => '/permissions_group/{permission_group:[0-9]+}',
+            'pattern' => '/permissions_group/{permission_group:int}',
             'method'=>['GET', 'POST']
         ],
         'permissions' => [
             'callback' => 'permissions',
-            'pattern' => '/permissions/{permission_group:[0-9]+}',
+            'pattern' => '/permissions/{permission_group:int}',
             'method'=>['GET', 'POST']
         ],
         'role_user' => [
             'callback' => 'roleUser',
-            'pattern' => '/{user_id:[0-9]+}/role',
+            'pattern' => '/{user_id:int}/role',
             'method'=>['GET', 'POST']
         ],
         'permission_user' => [
             'callback' => 'permissionUser',
-            'pattern' => '/{user_id:[0-9]+}/permission',
+            'pattern' => '/{user_id:int}/permission',
             'method'=>['GET', 'POST']
         ],
     ];

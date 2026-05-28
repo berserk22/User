@@ -12,8 +12,8 @@ use DI\NotFoundException;
 use Modules\Rest\Manager\AbstractManager;
 use Modules\User\UserTrait;
 use OpenApi\Annotations as OA;
-use Slim\Http\Response;
-use Slim\Http\ServerRequest as Request;
+use Slim\Psr7\Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 class IndexController extends AbstractManager {
 

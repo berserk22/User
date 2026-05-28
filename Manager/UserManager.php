@@ -60,51 +60,35 @@ class UserManager {
      */
     public function initEntity(): static {
         if (!$this->getContainer()->has($this->user)){
-            $this->getContainer()->set($this->user, function(){
-                return 'Modules\User\Db\Models\User';
-            });
+            $this->getContainer()->set($this->user, 'Modules\User\Db\Models\User');
         }
 
         if (!$this->getContainer()->has($this->role)){
-            $this->getContainer()->set($this->role, function () {
-                return "Modules\User\Db\Models\Role";
-            });
+            $this->getContainer()->set($this->role, "Modules\User\Db\Models\Role");
         }
 
         if (!$this->getContainer()->has($this->rolePermission)){
-            $this->getContainer()->set($this->rolePermission, function () {
-                return "Modules\User\Db\Models\RolePermission";
-            });
+            $this->getContainer()->set($this->rolePermission, "Modules\User\Db\Models\RolePermission");
         }
 
         if (!$this->getContainer()->has($this->permissionGroup)){
-            $this->getContainer()->set($this->permissionGroup, function () {
-                return "Modules\User\Db\Models\PermissionGroup";
-            });
+            $this->getContainer()->set($this->permissionGroup, "Modules\User\Db\Models\PermissionGroup");
         }
 
         if (!$this->getContainer()->has($this->permission)){
-            $this->getContainer()->set($this->permission, function () {
-                return "Modules\User\Db\Models\Permission";
-            });
+            $this->getContainer()->set($this->permission, "Modules\User\Db\Models\Permission");
         }
 
         if (!$this->getContainer()->has($this->userPermission)){
-            $this->getContainer()->set($this->userPermission, function () {
-                return "Modules\User\Db\Models\UserPermission";
-            });
+            $this->getContainer()->set($this->userPermission, "Modules\User\Db\Models\UserPermission");
         }
 
         if (!$this->getContainer()->has($this->address)){
-            $this->getContainer()->set($this->address, function () {
-                return "Modules\User\Db\Models\Address";
-            });
+            $this->getContainer()->set($this->address, "Modules\User\Db\Models\Address");
         }
 
         if (!$this->getContainer()->has($this->addressType)){
-            $this->getContainer()->set($this->addressType, function () {
-                return "Modules\User\Db\Models\AddressType";
-            });
+            $this->getContainer()->set($this->addressType, "Modules\User\Db\Models\AddressType");
         }
 
         return $this;

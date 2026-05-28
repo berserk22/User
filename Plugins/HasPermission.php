@@ -22,7 +22,7 @@ class HasPermission extends AbstractPlugin {
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function process(string $permission = null): bool {
+    public function process(?string $permission = null): bool {
         return $this->getUserModel()->isUserHasPermission($permission);
     }
 

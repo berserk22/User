@@ -20,7 +20,7 @@ class UserModel extends UserAuthModel {
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function getUserRole(int $id = null): Role|null {
+    public function getUserRole(?int $id = null): Role|null {
         if ($this->getAuth()->getStatus() && $id === null){
             return $this->getUserManager()->getRoleEntity()::select('role.id', 'role.name', 'role.title')
                 ->join('user', 'role.id', 'user.role_id')->where([
@@ -65,7 +65,7 @@ class UserModel extends UserAuthModel {
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function isUserHasRole(string $role = null): bool {
+    public function isUserHasRole(?string $role = null): bool {
         if ($this->getAuth()->getStatus() && $role !== null) {
             $role = $this->getUserManager()->getRoleEntity()::select('user_role.active')
                 ->join('user_role', 'role.id', 'user_role.role_id')->where([
@@ -85,7 +85,7 @@ class UserModel extends UserAuthModel {
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function isUserHasPermission(string $permission = null): bool {
+    public function isUserHasPermission(?string $permission = null): bool {
         if ($this->getAuth()->getStatus() && $permission !== null) {
             $permissions = $this->getUserManager()->getRoleEntity()::select('role_permission.permissions')
                 ->join('role_permission', 'role.id', 'role_permission.role_id')
@@ -132,16 +132,20 @@ class UserModel extends UserAuthModel {
      */
     public function getSidebarNavigation(): mixed {
         $general = $this->getGeneralPermission();
-        $permission = $this->getUserRole()->getPermissionsArray();
+        $userRole = $this->getUserRole();
         $sidebar = [];
-        foreach($general as $gItem){
-            if (isset($permission[$gItem->group_name])){
-                $sidebar[$gItem->group_name]["group"] = $gItem;
-                foreach($permission[$gItem->group_name] as $item){
-                    if (!str_contains($item, "general")){
-                        $tmpPermission = $this->getPermission($item);
-                        if ($tmpPermission->menu_item === 1){
-                            $sidebar[$gItem->group_name]["items"][] = $this->getPermission($item);
+        if (!is_null($userRole)) {
+            $permission = $this->getUserRole()->getPermissionsArray();
+
+            foreach($general as $gItem){
+                if (isset($permission[$gItem->group_name])){
+                    $sidebar[$gItem->group_name]["group"] = $gItem;
+                    foreach($permission[$gItem->group_name] as $item){
+                        if (!str_contains($item, "general")){
+                            $tmpPermission = $this->getPermission($item);
+                            if ($tmpPermission->menu_item === 1){
+                                $sidebar[$gItem->group_name]["items"][] = $this->getPermission($item);
+                            }
                         }
                     }
                 }
@@ -156,7 +160,7 @@ class UserModel extends UserAuthModel {
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function getPermission(string $name = null): mixed {
+    public function getPermission(?string $name = null): mixed {
         return $this->getUserManager()->getPermissionEntity()::where("name", "=", $name)->first();
     }
 

@@ -37,7 +37,7 @@ class ApiRouter extends \Core\Module\ApiRouter {
         ],
         'details' => [
             'callback' => 'getUser',
-            'pattern' =>'/{userId:[0-9]+}',
+            'pattern' =>'/{userId:int}',
             'method'=>['GET']
         ],
     ];
